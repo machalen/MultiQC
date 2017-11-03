@@ -22,8 +22,13 @@ RUN cd /usr/local && \
   chmod 755 /usr/local/FastQC/fastqc && \
   ln -s /usr/local/FastQC/fastqc && \
   rm -rf /tmp/fastqc_*.zip
-
 ENV PATH $PATH:/usr/local/FastQC
+
+#Install pip and multiqc
+RUN apt-get install python-pip python-dev build-essential
+RUN pip install --upgrade pip
+RUN pip install --upgrade virtualenv
+RUN pip install multiqc
 
 #Set wokingDir in /
 WORKDIR /
