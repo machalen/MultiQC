@@ -20,11 +20,10 @@ ADD http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.5.zip 
 RUN cd /usr/local && \
   unzip /tmp/fastqc_*.zip && \
   chmod 755 /usr/local/FastQC/fastqc && \
-  ln -s /usr/local/FastQC/fastqc /usr/local/bin/fastqc && \
+  ln -s /usr/local/FastQC/fastqc && \
   rm -rf /tmp/fastqc_*.zip
 
-#Install multiQC
-RUN pip install multiqc
+ENV PATH $PATH:/usr/local/FastQC
 
 #Set wokingDir in /
 WORKDIR /
