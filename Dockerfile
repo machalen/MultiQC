@@ -4,26 +4,11 @@
 #Ubuntu 14.04
 ##########################################################################
 #Build the image based on Ubuntu
-FROM ubuntu:14.04
-
+FROM python:2.7-slim
 #Maintainer and author
 MAINTAINER Magdalena Arnal <marnal@imim.es>
 
-#Download packages to manage files
-RUN apt-get update -y && apt-get install -y \
-    wget git unzip bzip2 g++ make zlib1g-dev ncurses-dev default-jdk default-jre libncurses5-dev \
-    libbz2-dev liblzma-dev
-    
-#Download Python3 and configure
-RUN apt-get update \
-  && apt-get install -y python3-pip python3-dev \
-  && cd /usr/local/bin \
-  && ln -s /usr/bin/python3 python \
-  && pip3 install --upgrade pip
-
-#Set wokingDir in /bin
-WORKDIR /bin
-#Download MultiQC for python3
-RUN pip3 install multiqc
+#Instalem multiqc
+pip install multiqc
 #Set wokingDir in /
 WORKDIR /
