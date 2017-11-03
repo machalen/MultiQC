@@ -25,7 +25,7 @@ RUN cd /usr/local && \
 ENV PATH $PATH:/usr/local/FastQC
 
 #Install pip and multiqc
-RUN apt-get install python-pip python-dev build-essential
+RUN apt-get update && apt-get install --yes python-pip python-dev build-essential
 RUN pip install --upgrade pip
 RUN pip install --upgrade virtualenv
 RUN pip install multiqc
