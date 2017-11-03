@@ -1,34 +1,29 @@
 #########################################################################
 #RNA-seq Tools
-#Dockerfile to use SUPPA with python3
+#Dockerfile to use MultiQC to summarize QC results
+#IMPORTANT: Author is Phil Exels (DockerHub ewels/multiqc)
 #Ubuntu 14.04
 ##########################################################################
+FROM python:2.7-slim
 
-# Set the base image to Ubuntu
-FROM ubuntu:14.04
+#IMPORTANT: Author is Phil Exels (DockerHub ewels/multiqc)
+LABEL \
+  author="Phil Ewels" \
+  description="MultiQC" \
+  maintainer="phil.ewels@scilifelab.se"
 
-# File Author / Maintainer
-MAINTAINER Magdalena Arnal <marnal@imim.es>
+# Install libraries
+RUN \
+  apt-get update && apt-get install -y --no-install-recommends \
+  g++ \
+  git \
+  wget \
+  && wget --quiet -O /opt/get-pip.py https://bootstrap.pypa.io/get-pip.py \
+  && python /opt/get-pip.py \
+  && rm -rf /var/lib/apt/lists/* /opt/get-pip.py
 
-# Install OpenJDK 7 JRE
-RUN apt-get update && apt-get install --yes openjdk-7-jre perl unzip python
-
-# Download FastQC
-ADD http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.5.zip /tmp/
-
-# Install FastQC
-RUN cd /usr/local && \
-  unzip /tmp/fastqc_*.zip && \
-  chmod 755 /usr/local/FastQC/fastqc && \
-  ln -s /usr/local/FastQC/fastqc && \
-  rm -rf /tmp/fastqc_*.zip
-ENV PATH $PATH:/usr/local/FastQC
-
-#Install pip and multiqc
-#RUN apt-get update && apt-get install --yes python-pip python-dev build-essential
-#RUN pip install --upgrade pip
-#RUN pip install --upgrade virtualenv
-#RUN pip install multiqc
+# Install MultiQC
+RUN pip install git+git://github.com/ewels/MultiQC.git
 
 #Set wokingDir in /
 WORKDIR /
