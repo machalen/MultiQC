@@ -10,9 +10,7 @@ FROM ubuntu:14.04
 MAINTAINER Magdalena Arnal <marnal@imim.es>
 
 #Install/update wget, unzip, python in ubuntu
-RUN apt-get update -y && apt-get install -y \
-    wget git unzip bzip2 g++ make zlib1g-dev ncurses-dev default-jdk default-jre libncurses5-dev \
-    libbz2-dev liblzma-dev python
+RUN apt-get update && apt-get install --yes wget unzip python
 
 #Instalem multiqc
 pip install multiqc
